@@ -1,6 +1,12 @@
 {
     "name": "easytaxibr/lib-log",
     "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Leandro Augusto",
+            "email": "leandro.freire@easytaxi.com.br"
+        }
+    ],
     "require": {
         "graylog2/gelf-php": "~1.0"
     }
