@@ -1,0 +1,7 @@
+{
+    "name": "easytaxi/lib-log",
+    "version": "1.0.0",
+    "require": {
+        "graylog2/gelf-php": "~1.0"
+    }
+}
