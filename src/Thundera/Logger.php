@@ -5,30 +5,39 @@ namespace Thundera;
 use Gelf\Logger as GelfLogger;
 use Gelf\Transport\UdpTransport;
 use Gelf\Publisher;
-use Gelf\Message;
 
 class Logger extends GelfLogger{
 
-    protected $_publisher;
+    protected static $_publisher;
+    protected static $_instance;
+    protected static $_graylogServer;
+    protected static $_graylogPort;
+
+    public static function getInstance($graylogServer, $graylogPort) {
+
+        self::$_graylogServer = $graylogServer;
+        self::$_graylogPort = $graylogPort;
+
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
 
     public function __construct()
     {
-        $transport = new UdpTransport("127.0.0.1", 12202, UdpTransport::CHUNK_SIZE_LAN);
+        $transport = new UdpTransport(self::$_graylogServer, self::$_graylogPort, UdpTransport::CHUNK_SIZE_LAN);
 
-        $this->_publisher = new Publisher();
-        $this->_publisher->addTransport($transport);
+        self::$_publisher = new Publisher();
+        self::$_publisher->addTransport($transport);
 
-        parent::__construct($this->_publisher);
+        parent::__construct(self::$_publisher);
     }
 
 
-    public static function send()
+    public static function send($message)
     {
-        $message = new Message();
-        $message->setShortMessage("Foobar!")
-            ->setLevel(\Psr\Log\LogLevel::ALERT)
-            ->setFullMessage("There was a foo in bar")
-            ->setFacility("example-facility");
         self::$_publisher->publish($message);
     }
 
