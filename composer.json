@@ -5,6 +5,10 @@
         {
             "name": "Leandro Augusto",
             "email": "leandro.freire@easytaxi.com.br"
+        },
+        {
+            "name": "Jefferson Franca",
+            "email": "jefferson.franca@easytaxi.com.br"
         }
     ],
     "require": {
