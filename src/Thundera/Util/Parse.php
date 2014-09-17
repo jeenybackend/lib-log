@@ -8,6 +8,8 @@
 
 namespace Thundera\Util;
 
+use Doctrine\ODM\MongoDB\PersistentCollection;
+
 class Parse {
 
     public static function toArray($object)
@@ -18,7 +20,7 @@ class Parse {
             $property->setAccessible(true);
             $propertyValue = $property->getValue($object);
             $propertyName = $property->getName();
-            if($propertyValue instanceof Doctrine\ODM\MongoDB\PersistentCollection) {
+            if($propertyValue instanceof PersistentCollection) {
                 $array[$propertyName] = $propertyValue->toArray();
                 foreach($propertyValue->toArray() as $key => $value) {
                     $array[$propertyName][$key] = self::toArray($value);
