@@ -9,6 +9,7 @@
 namespace Thundera\Util;
 
 use Doctrine\ODM\MongoDB\PersistentCollection;
+use Doctrine\Common\Util\Debug;
 
 class Parse {
 
@@ -32,6 +33,11 @@ class Parse {
             $property->setAccessible(false);
         }
         return $array;
+    }
+
+    public static function objToJson($data)
+    {
+        return array("data"=>json_encode(self::arrayRecursive(self::toArray($data))));
     }
 
     public static function diffToJson($before, $after)
@@ -60,5 +66,24 @@ class Parse {
         return $diff;
     }
 
+    public static function arrayRecursive($data)
+    {
+        $recursive = array();
 
-} 
+        foreach ($data as $key => $value) {
+
+            if (is_array($value)) {
+                $recursiveDiff = self::arrayRecursive($value);
+                if (count($recursiveDiff)) {
+                    $recursive[$key] = $recursiveDiff;
+                }
+                continue;
+            }
+
+            $recursive[$key] = $value;
+        }
+
+        return $recursive;
+    }
+
+}
