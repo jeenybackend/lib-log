@@ -11,12 +11,13 @@
             "email": "jefferson.franca@easytaxi.com.br"
         }
     ],
-    "require": {
-        "graylog2/gelf-php": "2.0.x-dev"
-    },
+
     "autoload": {
         "psr-0": {
             "Thundera": "src/"
         }
+    },
+    "require": {
+        "graylog2/gelf-php": "0.1.x-dev"
     }
 }
