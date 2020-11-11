@@ -1,5 +1,5 @@
 {
-    "name": "easytaxibr/lib-log",
+    "name": "jeenybackend/lib-log",
     "version": "1.0.0",
     "authors": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "graylog2/gelf-php": "~1.0"
+        "graylog2/gelf-php": ">=1.4.x-dev"
     },
     "autoload": {
         "psr-0": {
